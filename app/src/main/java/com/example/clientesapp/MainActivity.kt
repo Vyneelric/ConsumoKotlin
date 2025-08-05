@@ -13,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.clientesapp.model.Cliente
+import com.example.clientesapp.screens.cliente.ListaDeClientes
 import com.example.clientesapp.service.Conexão
 import com.example.clientesapp.ui.theme.ClientesAPPTheme
 import kotlinx.coroutines.Dispatchers
@@ -26,13 +27,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val cliente = Cliente(null, "cadastroVini","teste@gmail.com.br" )
+            ClientesAPPTheme {
 
-
-            val conexao = Conexão().getClienteService()
-            LaunchedEffect(Dispatchers.IO) {
-                conexao.cadastrarCliente(cliente).await()
-            }
+                ListaDeClientes()
+//                val cliente = Cliente(null, "cadastroVini","teste@gmail.com.br" )
+//
+//
+//                val conexao = Conexão().getClienteService()
+//                LaunchedEffect(Dispatchers.IO) {
+//                    conexao.cadastrarCliente(cliente).await()
+//                }
 
 //            val requisicao = conexao.cadastrarCliente(cliente)
 //
@@ -45,6 +49,7 @@ class MainActivity : ComponentActivity() {
 //                    TODO("Not yet implemented")
 //                }
 //            })
+            }
         }
     }
 }
