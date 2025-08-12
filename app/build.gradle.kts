@@ -64,4 +64,7 @@ dependencies {
 
     //RentroFitCONVERTER
     implementation(libs.converter.gson)
+
+    //Navigation
+    implementation(libs.androidx.navigation.compose)
 }

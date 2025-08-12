@@ -28,27 +28,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ClientesAPPTheme {
-
                 ListaDeClientes()
-//                val cliente = Cliente(null, "cadastroVini","teste@gmail.com.br" )
-//
-//
-//                val conexao = Conexão().getClienteService()
-//                LaunchedEffect(Dispatchers.IO) {
-//                    conexao.cadastrarCliente(cliente).await()
-//                }
-
-//            val requisicao = conexao.cadastrarCliente(cliente)
-//
-//
-//            requisicao.enqueue(object : Callback<Cliente>{
-//                override fun onResponse(call: Call<Cliente>, response: Response<Cliente>) {
-//                    println("Http Code: ${response.code()}, Response Message: ${response.message()}")
-//                }
-//                override fun onFailure(call: Call<Cliente>, t: Throwable) {
-//                    TODO("Not yet implemented")
-//                }
-//            })
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.clientesapp.screens.cliente.componentes
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -12,15 +13,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import com.example.clientesapp.ui.theme.ClientesAPPTheme
 
 @Composable
-fun BarraInferior(modifier: Modifier = Modifier) {
+fun BarraInferior(controleNavegacao: NavHostController?) {
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer
     ){
         NavigationBarItem(
-            onClick = {},
+            onClick = {
+                controleNavegacao!!.navigate("home")
+            },
             selected = false,
             icon = {
                 Icon(
@@ -46,16 +50,18 @@ fun BarraInferior(modifier: Modifier = Modifier) {
             }
         )
         NavigationBarItem(
-            onClick = {},
+            onClick = {
+                controleNavegacao!!.navigate(route = "cadastro")
+            },
             selected = false,
             icon = {
                 Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Pessoa"
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Novo"
                 )
             },
             label = {
-                Text("Meu perfil")
+                Text("Novo Cliente")
             }
         )
     }
@@ -65,6 +71,6 @@ fun BarraInferior(modifier: Modifier = Modifier) {
 @Composable
 private fun BarraInferiorPreview() {
     ClientesAPPTheme {
-        BarraInferior()
+        BarraInferior(null)
     }
 }

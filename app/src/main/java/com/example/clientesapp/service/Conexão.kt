@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Conexão {
 
-    private val BASEURL = "https://app1.celso.dev.br/clientes-app/api/"
+    private val BASEURL = "https://srv945707.hstgr.cloud/api/"
 
     private val conexao = Retrofit
         .Builder()
