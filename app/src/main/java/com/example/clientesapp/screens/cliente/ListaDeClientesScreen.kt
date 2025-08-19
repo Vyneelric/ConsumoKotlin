@@ -41,7 +41,7 @@ fun ListaDeClientes(modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun ListaDeClientesPreview() {
     ClientesAPPTheme {

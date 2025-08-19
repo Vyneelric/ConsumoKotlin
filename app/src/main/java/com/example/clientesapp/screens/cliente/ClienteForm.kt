@@ -15,12 +15,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +36,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
 import com.example.clientesapp.model.Cliente
 import com.example.clientesapp.service.Conexão
 import com.example.clientesapp.ui.theme.ClientesAPPTheme
@@ -58,11 +61,14 @@ fun ClienteForm(padding: PaddingValues, controleNavegacao: NavHostController?) {
         return !isNomeError && !isEmailError
     }
 
+    var mostrarMensagemSucesso by remember { mutableStateOf(false) }
+
     var clienteAPI = Conexão().getClienteService()
 
     Surface(
         modifier = Modifier.fillMaxSize()
             .padding(padding)
+            .fillMaxSize()
     ){
         Column(
             modifier = Modifier
@@ -106,7 +112,7 @@ fun ClienteForm(padding: PaddingValues, controleNavegacao: NavHostController?) {
                 isError = isNomeError,
                 supportingText = {
                     if(isNomeError){
-                        Text(text = "Ta errado papai")
+                        Text(text = "O campo nome do cliente está incorreto!")
                     }
                 }
             )
@@ -128,7 +134,7 @@ fun ClienteForm(padding: PaddingValues, controleNavegacao: NavHostController?) {
                 isError = isEmailError,
                 supportingText = {
                     if(isNomeError){
-                        Text(text = "Ta errado papai")
+                        Text(text = "O E-mail do cliente está incorreto!")
                     }
                 }
             )
@@ -145,9 +151,8 @@ fun ClienteForm(padding: PaddingValues, controleNavegacao: NavHostController?) {
                             val clienteNovo = clienteAPI
                                 .cadastrarCliente(cliente)
                                 .await()
-                            println(clienteNovo)
+                            mostrarMensagemSucesso = true
                         }
-                        controleNavegacao!!.navigate("home")
                     } else {
                         println("Dados incorretos!!!")
                     }
@@ -158,6 +163,42 @@ fun ClienteForm(padding: PaddingValues, controleNavegacao: NavHostController?) {
             ) {
                 Text(text = "Gravar Cliente")
             }
+        }
+
+        if (mostrarMensagemSucesso){
+            AlertDialog(
+                onDismissRequest = {
+                    mostrarMensagemSucesso = true
+                    nomeCliente = ""
+                    emailCliente = ""
+                },
+                title = {
+                    Text("Sucesso!")
+                },
+                text = {
+                    Text(text = "Cliente $nomeCliente gravado com sucesso! \nDeseja cadastrar outro cliente?")
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            nomeCliente = ""
+                            emailCliente = ""
+                            mostrarMensagemSucesso = false
+                        }
+                    ){
+                      Text(text = "Sim")
+                    }
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = {
+                            controleNavegacao!!.navigate("home")
+                        }
+                    ){
+                        Text(text = "Não")
+                    }
+                }
+            )
         }
 
     }
